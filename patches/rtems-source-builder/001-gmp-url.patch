@@ -1,0 +1,13 @@
+diff --git a/source-builder/config/gmp.cfg b/source-builder/config/gmp.cfg
+index 7dc8bf1..33fadb3 100644
+--- a/source-builder/config/gmp.cfg
++++ b/source-builder/config/gmp.cfg
+@@ -34,7 +34,7 @@ URL: 	   https://gmplib.org/
+ # Allow the user to override the UURL
+ #
+ %if %{!defined gmp_url}
+- %define gmp_url https://gmplib.org/download/gmp
++ %define gmp_url https://ftp.gnu.org/gnu/gmp
+ %endif
+ 
+ #

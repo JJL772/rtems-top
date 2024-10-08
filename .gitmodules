@@ -1,0 +1,3 @@
+[submodule "rtems-source-builder"]
+	path = rtems-source-builder
+	url = https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git
