@@ -21,8 +21,8 @@ while test $# -gt 0; do
     shift
 done
 
-mkdir -p "${TOP}/../../host/linux-$(uname -m)"
-PREFIX="$(readlink -f "${TOP}/../../host/linux-$(uname -m)")"
+mkdir -p "${TOP}/../host/linux-$(uname -m)"
+PREFIX="$(readlink -f "${TOP}/../host/linux-$(uname -m)")"
 
 # RTEMS version
 VERSION="6"
