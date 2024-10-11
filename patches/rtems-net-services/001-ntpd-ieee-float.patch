@@ -1,0 +1,13 @@
+diff --git a/bsd/freebsd/contrib/ntp/ntpd/ntp_util.c b/bsd/freebsd/contrib/ntp/ntpd/ntp_util.c
+index a999c20..23c9c4c 100644
+--- a/bsd/freebsd/contrib/ntp/ntpd/ntp_util.c
++++ b/bsd/freebsd/contrib/ntp/ntpd/ntp_util.c
+@@ -29,7 +29,7 @@
+ #include <sys/stat.h>
+ 
+ #ifdef HAVE_IEEEFP_H
+-# include <ieeefp.h>
++//# include <ieeefp.h>
+ #endif
+ #ifdef HAVE_MATH_H
+ # include <math.h>
