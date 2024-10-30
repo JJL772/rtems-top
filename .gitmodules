@@ -1,12 +1,12 @@
 [submodule "rtems-source-builder"]
-	path = rtems-source-builder
+	path = src/rtems-source-builder
 	url = https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git
 [submodule "rtems"]
-	path = rtems
+	path = src/rtems
 	url = https://gitlab.rtems.org/rtems/rtos/rtems.git
 [submodule "rtems-libbsd"]
-	path = rtems-libbsd
+	path = src/rtems-libbsd
 	url = https://gitlab.rtems.org/rtems/pkg/rtems-libbsd.git
 [submodule "rtems-net-services"]
-	path = rtems-net-services
+	path = src/rtems-net-services
 	url = https://gitlab.rtems.org/rtems/pkg/rtems-net-services.git

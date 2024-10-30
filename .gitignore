@@ -1,3 +1,5 @@
 *.o
-*.obk
+*.obj
 *.exe
+/host/
+/target/
