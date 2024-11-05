@@ -40,7 +40,7 @@ elif [ $NO_DL -eq 1 ]; then
     EXTRA_ARGS=--no-download
 fi
 
-#./source-builder/sb-set-builder --prefix="${PREFIX}" "${VERSION}/rtems-powerpc.bset" $EXTRA_ARGS
+./source-builder/sb-set-builder --prefix="${PREFIX}" "${VERSION}/rtems-powerpc.bset" $EXTRA_ARGS
 
 ./source-builder/sb-set-builder --prefix="${PREFIX}" "${VERSION}/rtems-m68k.bset" $EXTRA_ARGS
 
