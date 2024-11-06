@@ -10,3 +10,6 @@
 [submodule "rtems-net-services"]
 	path = src/rtems-net-services
 	url = https://gitlab.rtems.org/rtems/pkg/rtems-net-services.git
+[submodule "src/rtems-tools"]
+	path = src/rtems-tools
+	url = https://gitlab.rtems.org/rtems/tools/rtems-tools.git
