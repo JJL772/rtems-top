@@ -44,3 +44,5 @@ fi
 
 ./source-builder/sb-set-builder --prefix="${PREFIX}" "${VERSION}/rtems-m68k.bset" $EXTRA_ARGS
 
+./source-builder/sb-set-builder --prefix="${PREFIX}" "${VERSION}/rtems-arm.bset" $EXTRA_ARGS
+

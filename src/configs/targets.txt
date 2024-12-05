@@ -2,3 +2,4 @@ powerpc/mvme3100
 powerpc/beatnik
 powerpc/psim
 m68k/uC5282
+arm/xilinx_zynq_a9_qemu
