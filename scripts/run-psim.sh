@@ -9,5 +9,5 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-"$TOP/../host/linux-x86_64/bin/powerpc-rtems6-run" -f "$TOP/psim-device-tree" "$1"
+"$TOP/../host/linux-x86_64/bin/powerpc-rtems6-run" -f "$TOP/psim/psim-device-tree" "$1"
 
