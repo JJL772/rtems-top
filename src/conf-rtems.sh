@@ -47,6 +47,7 @@ fi
 # Copy in the configs
 echo "# Generated config! If you edit this, conf-rtems.sh will overwrite your changes!" > config.ini
 for target in $ALL_TARGETS; do
+	echo "Adding $target"
 	_T="$(echo $target | cut -f2 -d '/')"
 	cat ../configs/rtems-config.$_T.ini >> config.ini
 done

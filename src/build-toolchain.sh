@@ -46,3 +46,5 @@ fi
 
 ./source-builder/sb-set-builder --prefix="${PREFIX}" "${VERSION}/rtems-arm.bset" $EXTRA_ARGS
 
+./source-builder/sb-set-builder --prefix="${PREFIX}" "${VERSION}/rtems-i386.bset" $EXTRA_ARGS
+

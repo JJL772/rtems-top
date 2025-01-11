@@ -27,7 +27,7 @@ while test $# -gt 0; do
     esac
 done
 
-CMD="qemu-system-arm -no-reboot -nographic -serial none -serial mon:stdio -M xilinx-zynq-a9 -m 256M -nic user $ARGS -kernel \"$KERNEL\""
+CMD="qemu-system-arm -no-reboot -net nic,model=cadence_gem -nographic -serial none -serial mon:stdio -M xilinx-zynq-a9 -m 256M $ARGS -kernel \"$KERNEL\""
 
 echo "$CMD"
 eval $CMD
