@@ -16,7 +16,7 @@ fi
 wget "https://github.com/JJL772/rtems-toolchains/releases/download/${CURRENT_VER}/rtems-${RTEMS_VER}-$1.tar.xz"
 
 echo "Extracting..."
-tar -xf "rtems-${RTEMS_VER}-$1.tar.xz" -C "../host/linux-x86_64"
+tar -xf "rtems-${RTEMS_VER}-$1.tar.xz" -C "host/linux-x86_64"
 
 rm "rtems-${RTEMS_VER}-$1.tar.xz"
 
