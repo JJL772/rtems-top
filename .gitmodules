@@ -13,6 +13,3 @@
 [submodule "src/rtems-tools"]
 	path = src/rtems-tools
 	url = https://gitlab.rtems.org/rtems/tools/rtems-tools.git
-[submodule "scripts"]
-	path = scripts
-	url = git@github.com:JJL772/rtems-toolchains.git
