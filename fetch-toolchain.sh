@@ -4,6 +4,8 @@ set -e
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
+mkdir -p host/linux-x86_64
+
 CURRENT_VER="2024.12.18"
 RTEMS_VER=6
 
