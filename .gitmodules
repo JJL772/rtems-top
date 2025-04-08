@@ -3,7 +3,7 @@
 	url = https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git
 [submodule "rtems"]
 	path = src/rtems
-	url = https://gitlab.rtems.org/rtems/rtos/rtems.git
+	url = git@github.com:slaclab/rtems.git
 [submodule "rtems-libbsd"]
 	path = src/rtems-libbsd
 	url = https://gitlab.rtems.org/rtems/pkg/rtems-libbsd.git
