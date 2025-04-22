@@ -6,7 +6,7 @@
 	url = git@github.com:slaclab/rtems.git
 [submodule "rtems-libbsd"]
 	path = src/rtems-libbsd
-	url = https://gitlab.rtems.org/rtems/pkg/rtems-libbsd.git
+	url = git@github.com:JJL772/rtems-libbsd.git
 [submodule "rtems-net-services"]
 	path = src/rtems-net-services
 	url = https://gitlab.rtems.org/rtems/pkg/rtems-net-services.git
