@@ -1,0 +1,189 @@
+commit 573bd40f0039783a24450cb5eb74f262f157ae1a
+Author: Jeremy Lorelli <jeremy.lorelli.1337@gmail.com>
+Date:   Mon Apr 21 22:30:04 2025 -0700
+
+    Get it compiling for RTEMS
+
+diff --git a/configure.ac b/configure.ac
+index ba4856a..6984a6c 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -8,8 +8,11 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES(yes)])
+ 
+ dnl Checks for programs.
+ AC_PROG_CC
++AC_PROG_RANLIB
+ AC_USE_SYSTEM_EXTENSIONS
+ 
++LT_INIT
++
+ AC_MSG_CHECKING([for build system compiler])
+ if test "$cross_compiling" = yes; then
+ 	CC_FOR_BUILD=${CC_FOR_BUILD-cc}
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 1732465..d54a142 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -14,21 +14,25 @@ COMPILE_FOR_BUILD = \
+ 	$(CPPFLAGS_FOR_BUILD) \
+ 	$(AM_CFLAGS_FOR_BUILD) $(CFLAGS_FOR_BUILD) 
+ 
+-bin_PROGRAMS = dash
++#bin_PROGRAMS = dash
+ 
+-dash_CFILES = \
++lib_LIBRARIES = libdash.a
++
++libdash_a_CFILES = \
+ 	alias.c arith_yacc.c arith_yylex.c cd.c error.c eval.c exec.c expand.c \
+ 	histedit.c input.c jobs.c mail.c main.c memalloc.c miscbltin.c \
+ 	mystring.c options.c parser.c redir.c show.c trap.c output.c \
+-	bltin/printf.c system.c bltin/test.c bltin/times.c var.c
+-dash_SOURCES = \
+-	$(dash_CFILES) \
++	bltin/printf.c system.c bltin/test.c bltin/times.c var.c builtins.c init.c nodes.c signames.c syntax.c
++libdash_a_SOURCES = \
++	$(libdash_a_CFILES) \
+ 	alias.h arith_yacc.h bltin/bltin.h cd.h error.h eval.h exec.h \
+ 	expand.h \
+ 	init.h input.h jobs.h machdep.h mail.h main.h memalloc.h miscbltin.h \
+ 	myhistedit.h mystring.h options.h output.h parser.h redir.h shell.h \
+ 	show.h system.h trap.h var.h
+-dash_LDADD = builtins.o init.o nodes.o signames.o syntax.o
++libdash_a_LIBADD = builtins.o init.o nodes.o signames.o syntax.o
++
++nobase_include_HEADERS = rtems_dash.h
+ 
+ HELPERS = mkinit mksyntax mknodes mksignames
+ 
+diff --git a/src/jobs.c b/src/jobs.c
+index 51e6fa1..a352675 100644
+--- a/src/jobs.c
++++ b/src/jobs.c
+@@ -1202,7 +1202,8 @@ waitproc(int block, int *status)
+ 	do {
+ 		gotsigchld = 0;
+ 		do
+-			err = wait3(status, flags, NULL);
++			err = wait(status);
++			//err = wait3(status, flags, NULL);
+ 		while (err < 0 && errno == EINTR);
+ 
+ 		if (err || (err = -!block))
+diff --git a/src/main.c b/src/main.c
+index 1e192f8..8a3aa9d 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -77,7 +77,7 @@ MKINIT struct jmploc main_handler;
+ STATIC void read_profile(const char *);
+ STATIC char *find_dot_file(char *);
+ static int cmdloop(int);
+-int main(int, char **);
++int dash_main(int, char **);
+ 
+ /*
+  * Main routine.  We initialize things, parse the arguments, execute
+@@ -88,7 +88,7 @@ int main(int, char **);
+  */
+ 
+ int
+-main(int argc, char **argv)
++dash_main(int argc, char **argv)
+ {
+ 	char *shinit;
+ 	volatile int state;
+diff --git a/src/redir.c b/src/redir.c
+index 8d1c8f6..760633d 100644
+--- a/src/redir.c
++++ b/src/redir.c
+@@ -296,7 +296,7 @@ static int sh_dup2(int ofd, int nfd, int cfd)
+ 	if (likely(cfd >= 0))
+ 		close(cfd);
+ 	if (nfd < 0)
+-		sh_error("%d: %s", ofd, strerror(errno));
++		sh_error("dup2: %d: %s", ofd, strerror(errno));
+ 
+ 	return nfd;
+ }
+@@ -473,7 +473,7 @@ savefd(int from, int ofd)
+ #endif
+ 
+ 	err = newfd < 0 ? errno : 0;
+-	if (err != EBADF) {
++	if (err != EBADF && newfd >= 0) {
+ 		close(ofd);
+ 		if (err)
+ 			sh_error("%d: %s", from, strerror(err));
+diff --git a/src/rtems_dash.h b/src/rtems_dash.h
+new file mode 100644
+index 0000000..482acc4
+--- /dev/null
++++ b/src/rtems_dash.h
+@@ -0,0 +1,8 @@
++
++#ifndef _RTEMS_DASH_H_
++#define _RTEMS_DASH_H_
++
++extern int
++rtems_dash(int argc, char** argv);
++
++#endif // _RTEMS_DASH_H_
+diff --git a/src/system.c b/src/system.c
+index 844a641..8ffd936 100644
+--- a/src/system.c
++++ b/src/system.c
+@@ -197,3 +197,22 @@ int isblank(int c) {
+ 	return c == ' ' || c == '\t';
+ }
+ #endif
++
++#ifndef HAVE_KILLPG
++int killpg(pid_t pid, int signal)
++{
++#ifdef DEBUG
++	if (pid < 0)
++		abort();
++#endif
++	return kill(-pid, signal);
++}
++#endif
++
++#ifndef HAVE_MEMFD_CREATE
++int memfd_create(const char *name, unsigned int flags)
++{
++	return -1;
++}
++#endif
++
+diff --git a/src/system.h b/src/system.h
+index 8cb4726..8a679e4 100644
+--- a/src/system.h
++++ b/src/system.h
+@@ -56,10 +56,7 @@ static inline void sigclearmask(void)
+ }
+ 
+ #ifndef HAVE_MEMFD_CREATE
+-static inline int memfd_create(const char *name, unsigned int flags)
+-{
+-	return -1;
+-}
++int memfd_create(const char *name, unsigned int flags);
+ #endif
+ 
+ #ifndef HAVE_MEMPCPY
+@@ -100,14 +97,7 @@ void *bsearch(const void *, const void *, size_t, size_t,
+ #endif
+ 
+ #ifndef HAVE_KILLPG
+-static inline int killpg(pid_t pid, int signal)
+-{
+-#ifdef DEBUG
+-	if (pid < 0)
+-		abort();
+-#endif
+-	return kill(-pid, signal);
+-}
++extern int killpg(pid_t pid, int signal);
+ #endif
+ 
+ #ifndef HAVE_SYSCONF
