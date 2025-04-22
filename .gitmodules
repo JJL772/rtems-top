@@ -16,3 +16,6 @@
 [submodule "scripts"]
 	path = tools
 	url = git@github.com:JJL772/rtems-tools.git
+[submodule "src/dash"]
+	path = src/dash
+	url = git://git.kernel.org/pub/scm/utils/dash/dash.git
