@@ -19,3 +19,6 @@
 [submodule "src/dash"]
 	path = src/dash
 	url = git://git.kernel.org/pub/scm/utils/dash/dash.git
+[submodule "src/rtems-init"]
+	path = src/rtems-init
+	url = git@github.com:JJL772/rtems-init.git
