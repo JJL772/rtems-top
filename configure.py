@@ -142,7 +142,7 @@ def _conf_net_legacy(config: ConfigRoot) -> bool:
     ]
     print(' '.join(CMD))
     return subprocess.run(
-        CMD, cwd=f'{_get_srcdir()}/rtems-net-services'
+        CMD, cwd=f'{_get_srcdir()}/rtems-net-legacy'
     ).returncode == 0
 
 def _conf_net_services(config: ConfigRoot) -> bool:
