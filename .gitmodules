@@ -22,3 +22,6 @@
 [submodule "src/rtems-init"]
 	path = src/rtems-init
 	url = git@github.com:JJL772/rtems-init.git
+[submodule "src/rtems-net-legacy"]
+	path = src/rtems-net-legacy
+	url = ssh://git@gitlab.rtems.org:2222/rtems/pkg/rtems-net-legacy.git
