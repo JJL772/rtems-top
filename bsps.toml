@@ -1,0 +1,30 @@
+# Lists all of the BSPs we want to build for
+
+# Example:
+# [powerpc-mvme3100]
+# networking = 'bsd'
+# cfg = 'configs/rtems-config.mvme3100.ini' # Inferred
+
+[powerpc-mvme3100]
+networking = 'bsd'
+net_services = true
+
+[powerpc-beatnik]
+networking = 'bsd'
+net_services = true
+
+[powerpc-psim]
+networking = 'none'
+net_services = true
+
+[i386-pc686]
+networking = 'bsd'
+net_services = true
+
+[arm-xilinx_zynq_a9_qemu]
+networking = 'bsd'
+net_services = true
+
+[m68k-uC5282]
+networking = 'legacy'
+net_services = true
