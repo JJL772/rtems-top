@@ -36,8 +36,6 @@ parser.add_argument('--dest-subdir', dest='SUBDIR', type=str, default='rtems', h
 parser.add_argument('--build', dest='BUILD', action='store_true', help='Perform a build + install after configure')
 args = parser.parse_args()
 
-#PREFIX="$PWD/../../target/rtems"
-
 class ConfigEntry(TypedDict):
     bsp: str
     arch: str
@@ -121,7 +119,6 @@ def _gen_rtems_config(outpath: str, inputs: list[str]) -> None:
 
 def _conf_rtems(config: ConfigRoot) -> bool:
     _gen_rtems_config(f'{_get_srcdir()}/rtems/config.ini', [x['config'] for x in config['entries']])
-    #./waf configure --rtems-bsps="$ALL_TARGETS" --prefix="$PREFIX" --rtems-tools="$PWD/../../host/linux-x86_64"
     CMD = ['./waf', 'configure', f'--rtems-bsps={_all_bsps(config)}', f'--prefix={_get_prefix()}', f'--rtems-tools={_get_host_prefix()}']
     print(' '.join(CMD))
     return subprocess.run(
@@ -129,7 +126,6 @@ def _conf_rtems(config: ConfigRoot) -> bool:
     ).returncode == 0
 
 def _conf_libbsd(config: ConfigRoot) -> bool:
-    #./waf configure --prefix="$PREFIX" --rtems-tools="$PWD/../../host/linux-x86_64" --rtems="$PREFIX" --buildset=buildset/default.ini
     CMD = [
         './waf', 'configure', f'--prefix={_get_prefix()}', f'--rtems-tools={_get_host_prefix()}', f'--rtems={_get_prefix()}',
         '--buildset=buildset/default.ini', f'--rtems-bsps={_get_bsps_for(config, lambda x : x["networking"] == "bsd")}'

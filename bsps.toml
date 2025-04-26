@@ -15,7 +15,7 @@ net_services = true
 
 [powerpc-psim]
 networking = 'none'
-net_services = true
+net_services = false
 
 [i386-pc686]
 networking = 'bsd'
