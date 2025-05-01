@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
-"""
+HELP = """
 Utility script to configure RTEMS and related packages for building.
 After packages are configured, they can be built and installed using waf.
 
 BSP features are loosely defined by bsps.toml, that lives next to this script.
 
-Example usage:
+Examples:
 
   # Configure RTEMS for build
   ./configure.py --project rtems
@@ -16,6 +16,9 @@ Example usage:
   
   # Configure RTEMS and install to rtems_p2 directory
   ./configure.py --project rtems --dest-subdir rtems_p2
+
+  # Perform a full configure + build + install
+  ./configure.py --project all --build
   
 """
 
@@ -26,10 +29,11 @@ import subprocess
 from typing import TypedDict, Callable
 
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(usage=HELP)
 parser.add_argument('--project', required=True, type=str, help=f'Project to configure. Must be one of: rtems, rtems-libbsd, rtems-net-legacy, rtems-net-services')
 parser.add_argument('--top', dest='TOP', type=str, default=f'{os.path.dirname(__file__)}', help='Location of the topdir')
 parser.add_argument('--dest-subdir', dest='SUBDIR', type=str, default='rtems', help='Destination subdir within target directory')
+parser.add_argument('--build', dest='BUILD', action='store_true', help='Perform a build + install after configure')
 args = parser.parse_args()
 
 #PREFIX="$PWD/../../target/rtems"
@@ -132,7 +136,7 @@ def _conf_libbsd(config: ConfigRoot) -> bool:
     ]
     print(' '.join(CMD))
     return subprocess.run(
-        CMD, shell=True, cwd=f'{_get_srcdir()}/rtems-libbsd'
+        CMD, cwd=f'{_get_srcdir()}/rtems-libbsd'
     ).returncode == 0
 
 def _conf_net_legacy(config: ConfigRoot) -> bool:
@@ -155,7 +159,15 @@ def _conf_net_services(config: ConfigRoot) -> bool:
         CMD, cwd=f'{_get_srcdir()}/rtems-net-services'
     ).returncode == 0
 
+def _build_project(proj: str) -> bool:
+    """
+    Runs waf build install for the specified project. Returns true on success
+    """
+    return subprocess.run(
+        ['./waf', 'build', 'install'], cwd=f'{_get_srcdir()}/{proj}'
+    ).returncode == 0
 
+# NOTE: Order matters here; i.e. must build rtems before libbsd or net-legacy
 PROJECTS = {
     'rtems': _conf_rtems,
     'rtems-libbsd': _conf_libbsd,
@@ -172,10 +184,16 @@ def main():
             if not v(c):
                 print(f'Failed to configure {k}')
                 exit(1)
+            if args.BUILD and not _build_project(k):
+                print(f'Failed to build project {k}')
+                exit(1)
     else:
         try:
             if not PROJECTS[args.project](c):
                 print(f'Failed to configure {args.project}')
+                exit(1)
+            if args.BUILD and not _build_project(args.project):
+                print(f'Failed to build {args.project}')
                 exit(1)
         except Exception as e:
             print(f'No such project {args.project}')
