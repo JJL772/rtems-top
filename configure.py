@@ -155,6 +155,15 @@ def _conf_net_services(config: ConfigRoot) -> bool:
         CMD, cwd=f'{_get_srcdir()}/rtems-net-services'
     ).returncode == 0
 
+def _conf_rtems_tools(config: ConfigRoot) -> bool:
+    CMD = [
+        './waf', 'configure', f'--prefix={_get_host_prefix()}'
+    ]
+    print(' '.join(CMD))
+    return subprocess.run(
+        CMD, cwd=f'{_get_srcdir()}/rtems-tools'
+    ).returncode == 0
+
 def _build_project(proj: str) -> bool:
     """
     Runs waf build install for the specified project. Returns true on success
@@ -165,6 +174,7 @@ def _build_project(proj: str) -> bool:
 
 # NOTE: Order matters here; i.e. must build rtems before libbsd or net-legacy
 PROJECTS = {
+    'rtems-tools': _conf_rtems_tools,
     'rtems': _conf_rtems,
     'rtems-libbsd': _conf_libbsd,
     'rtems-net-legacy': _conf_net_legacy,
