@@ -25,7 +25,7 @@ mkdir -p "${TOP}/../host/linux-$(uname -m)"
 PREFIX="$(readlink -f "${TOP}/../host/linux-$(uname -m)")"
 
 # RTEMS version
-VERSION="6"
+VERSION="7"
 
 # Apply patches to rtems-source-builder
 for p in ${TOP}/patches/rtems-source-builder/*.patch; do
