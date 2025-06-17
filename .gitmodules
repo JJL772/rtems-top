@@ -5,10 +5,10 @@
 [submodule "rtems"]
 	path = src/rtems
     url = git@github.com:slaclab/rtems.git
-    branch = main
+    branch = slac-main
 [submodule "rtems-libbsd"]
     path = src/rtems-libbsd
-    url = ssh://git@gitlab.rtems.org:2222/rtems/pkg/rtems-libbsd.git
+	url = https://gitlab.rtems.org/rtems/pkg/rtems-libbsd.git
     branch = 7-freebsd-14
 [submodule "rtems-net-services"]
 	path = src/rtems-net-services
@@ -21,10 +21,11 @@
 [submodule "scripts"]
 	path = tools
 	url = git@github.com:JJL772/rtems-tools.git
+	branch = main
 [submodule "src/rtems-init"]
 	path = src/rtems-init
 	url = git@github.com:JJL772/rtems-init.git
 [submodule "src/rtems-net-legacy"]
 	path = src/rtems-net-legacy
-    url = ssh://git@gitlab.rtems.org:2222/rtems/pkg/rtems-net-legacy.git
+	url = https://gitlab.rtems.org/rtems/pkg/rtems-net-legacy.git
     branch = main
