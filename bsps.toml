@@ -9,6 +9,7 @@
 networking = 'bsd'
 net_services = true
 
+# NOTE: Includes support for mvme5500
 [powerpc-beatnik]
 networking = 'bsd'
 net_services = true

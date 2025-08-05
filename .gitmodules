@@ -16,8 +16,8 @@
     branch = main
 [submodule "src/rtems-tools"]
 	path = src/rtems-tools
-    url = https://gitlab.rtems.org/rtems/tools/rtems-tools.git
-    branch = main
+	url = https://github.com/slaclab/rtems-tools.git
+    branch = slac-main
 [submodule "scripts"]
 	path = tools
 	url = git@github.com:JJL772/rtems-tools.git
