@@ -27,5 +27,5 @@
 	url = git@github.com:JJL772/rtems-init.git
 [submodule "src/rtems-net-legacy"]
 	path = src/rtems-net-legacy
-	url = https://gitlab.rtems.org/rtems/pkg/rtems-net-legacy.git
-    branch = main
+	url = https://github.com/slaclab/rtems-net-services.git
+	branch = slac-main
