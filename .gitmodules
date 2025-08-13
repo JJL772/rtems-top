@@ -1,6 +1,6 @@
 [submodule "rtems-source-builder"]
 	path = src/rtems-source-builder
-    url = https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git
+	url = https://github.com/slaclab/rtems-source-builder.git
     branch = main
 [submodule "rtems"]
 	path = src/rtems
