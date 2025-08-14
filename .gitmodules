@@ -1,31 +1,32 @@
 [submodule "rtems-source-builder"]
-	path = src/rtems-source-builder
-	url = https://github.com/slaclab/rtems-source-builder.git
+    path = src/rtems-source-builder
+    url = git@github.com:slaclab/rtems-source-builder.git
     branch = main
 [submodule "rtems"]
-	path = src/rtems
+    path = src/rtems
     url = git@github.com:slaclab/rtems.git
     branch = slac-main
 [submodule "rtems-libbsd"]
     path = src/rtems-libbsd
-	url = https://gitlab.rtems.org/rtems/pkg/rtems-libbsd.git
-    branch = 7-freebsd-14
+    url = git@github.com:slaclab/rtems-libbsd.git
+    branch = slac-7-freebsd-14
 [submodule "rtems-net-services"]
-	path = src/rtems-net-services
+    path = src/rtems-net-services
     url = https://gitlab.rtems.org/rtems/pkg/rtems-net-services.git
     branch = main
 [submodule "src/rtems-tools"]
-	path = src/rtems-tools
-	url = https://github.com/slaclab/rtems-tools.git
+    path = src/rtems-tools
+    url = git@github.com:slaclab/rtems-tools.git
     branch = slac-main
 [submodule "scripts"]
-	path = tools
-	url = git@github.com:JJL772/rtems-tools.git
-	branch = main
+    path = tools
+    url = git@github.com:JJL772/rtems-tools.git
+    branch = main
 [submodule "src/rtems-init"]
-	path = src/rtems-init
-	url = git@github.com:JJL772/rtems-init.git
+    path = src/rtems-init
+    url = git@github.com:JJL772/rtems-init.git
+    branch = main
 [submodule "src/rtems-net-legacy"]
-	path = src/rtems-net-legacy
-	url = https://github.com/slaclab/rtems-net-services.git
-	branch = slac-main
+    path = src/rtems-net-legacy
+    url = https://github.com/slaclab/rtems-net-services.git
+    branch = slac-main
