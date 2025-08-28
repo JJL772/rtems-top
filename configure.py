@@ -19,6 +19,9 @@ Examples:
 
   # Perform a full configure + build + install
   ./configure.py --project all --build
+
+  # Configure rtems-libbsd only for i386
+  ./configure.py --project rtems-libbsd --rtems-bsps i386/pc686
   
 """
 
@@ -34,6 +37,7 @@ parser.add_argument('--project', required=True, type=str, help=f'Project to conf
 parser.add_argument('--top', dest='TOP', type=str, default=f'{os.path.dirname(__file__)}', help='Location of the topdir')
 parser.add_argument('--dest-subdir', dest='SUBDIR', type=str, default='rtems', help='Destination subdir within target directory')
 parser.add_argument('--build', dest='BUILD', action='store_true', help='Perform a build + install after configure')
+parser.add_argument('--rtems-bsps', dest='TARGETS', type=str, help='Comma separated list of BSPs to configure/build for')
 args = parser.parse_args()
 
 class ConfigEntry(TypedDict):
@@ -77,7 +81,7 @@ def _transform_key(key: str) -> tuple[str, str]:
     arch = key.split('-')[0]
     return (arch, key.replace(f'{arch}-', ''))
 
-def _load_config() -> ConfigRoot:
+def _load_config(bsps: list[str] | None) -> ConfigRoot:
     """
     Loads the bsps.toml config file
     
@@ -92,6 +96,8 @@ def _load_config() -> ConfigRoot:
     r: ConfigRoot = {'entries': []}
     for k, v in d.items():
         t = _transform_key(k)
+        if bsps and f'{t[0]}/{t[1]}' not in bsps:
+            continue
         r['entries'].append({
             'arch': t[0],
             'bsp': t[1],
@@ -183,8 +189,12 @@ PROJECTS = {
 
 def main():
     os.chdir(os.path.dirname(__file__))
-    
-    c = _load_config()
+
+    bsps = None
+    if args.TARGETS:
+        bsps = args.TARGETS.split(',')
+
+    c = _load_config(bsps)
     if args.project == 'all':
         for k,v in PROJECTS.items():
             if not v(c):
