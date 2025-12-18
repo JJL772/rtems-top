@@ -22,9 +22,10 @@ net_services = false
 networking = 'bsd'
 net_services = true
 
-[arm-xilinx_zynq_a9_qemu]
-networking = 'bsd'
-net_services = true
+# NOTE: Enable me if you want to test in ARM qemu!
+#[arm-xilinx_zynq_a9_qemu]
+#networking = 'bsd'
+#net_services = true
 
 [m68k-uC5282]
 networking = 'legacy'
