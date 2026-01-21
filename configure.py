@@ -25,7 +25,7 @@ Examples:
   
 """
 
-import tomllib
+import configparser
 import argparse
 import os
 import subprocess
@@ -81,7 +81,7 @@ def _transform_key(key: str) -> tuple[str, str]:
     arch = key.split('-')[0]
     return (arch, key.replace(f'{arch}-', ''))
 
-def _load_config(bsps: list[str] | None) -> ConfigRoot:
+def _load_config(bsps) -> ConfigRoot:
     """
     Loads the bsps.toml config file
     
@@ -89,21 +89,22 @@ def _load_config(bsps: list[str] | None) -> ConfigRoot:
     -------
         The root config
     """
-    d = {}
-    with open('bsps.toml', 'rb') as fp:
-        d = tomllib.load(fp)
+    d = configparser.ConfigParser()
+    d.read('bsps.toml')
     
     r: ConfigRoot = {'entries': []}
     for k, v in d.items():
         t = _transform_key(k)
         if bsps and f'{t[0]}/{t[1]}' not in bsps:
             continue
+        if k == 'DEFAULT':
+            continue
         r['entries'].append({
             'arch': t[0],
             'bsp': t[1],
             'config': v['config'] if 'config' in v else f'configs/rtems-config.{t[1]}.ini',
             'networking': v['networking'],
-            'net_services': v['net_services']
+            'net_services': bool(v['net_services'])
         })
     return r
 
@@ -217,4 +218,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-    
+
