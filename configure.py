@@ -104,7 +104,7 @@ def _load_config(bsps) -> ConfigRoot:
             'bsp': t[1],
             'config': v['config'] if 'config' in v else f'configs/rtems-config.{t[1]}.ini',
             'networking': v['networking'],
-            'net_services': bool(v['net_services'])
+            'net_services': v['net_services'].lower() == 'true'
         })
     return r
 

@@ -6,20 +6,20 @@
 # cfg = 'configs/rtems-config.mvme3100.ini' # Inferred
 
 [powerpc-mvme3100]
-networking = 'bsd'
+networking = legacy
 net_services = true
 
 # NOTE: Includes support for mvme5500
 [powerpc-beatnik]
-networking = 'bsd'
+networking = bsd
 net_services = true
 
 [powerpc-psim]
-networking = 'none'
+networking = none
 net_services = false
 
 [i386-pc686]
-networking = 'bsd'
+networking = bsd
 net_services = true
 
 # NOTE: Enable me if you want to test in ARM qemu!
@@ -28,5 +28,5 @@ net_services = true
 #net_services = true
 
 [m68k-uC5282]
-networking = 'legacy'
+networking = legacy
 net_services = true
