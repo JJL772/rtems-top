@@ -6,8 +6,8 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 
 mkdir -p host/linux-x86_64
 
-CURRENT_VER="2024.12.18"
-RTEMS_VER=6
+CURRENT_VER="2025.05.12"
+RTEMS_VER=7
 
 if [ -z "$1" ]; then
 	echo "Downloads a toolchain tarball off of GitHub"
@@ -15,7 +15,7 @@ if [ -z "$1" ]; then
 	exit 1
 fi
 
-wget "https://github.com/JJL772/rtems-toolchains/releases/download/${CURRENT_VER}/rtems-${RTEMS_VER}-$1.tar.xz"
+curl -OL "https://github.com/JJL772/rtems-toolchains/releases/download/${CURRENT_VER}/rtems-${RTEMS_VER}-$1.tar.xz"
 
 echo "Extracting..."
 tar -xf "rtems-${RTEMS_VER}-$1.tar.xz" -C "host/linux-x86_64"
