@@ -1,7 +1,7 @@
 [submodule "rtems-source-builder"]
     path = src/rtems-source-builder
     url = git@github.com:slaclab/rtems-source-builder.git
-    branch = main
+    branch = slac-main
 [submodule "rtems"]
     path = src/rtems
     url = git@github.com:slaclab/rtems.git
@@ -12,8 +12,9 @@
     branch = slac-7-freebsd-14
 [submodule "rtems-net-services"]
     path = src/rtems-net-services
-    url = https://gitlab.rtems.org/rtems/pkg/rtems-net-services.git
-    branch = main
+	#url = https://gitlab.rtems.org/rtems/pkg/rtems-net-services.git
+    url = git@github.com:slaclab/rtems-net-services.git
+    branch = slac-main
 [submodule "src/rtems-tools"]
     path = src/rtems-tools
     url = git@github.com:slaclab/rtems-tools.git
@@ -28,5 +29,5 @@
     branch = main
 [submodule "src/rtems-net-legacy"]
     path = src/rtems-net-legacy
-    url = https://github.com/slaclab/rtems-net-services.git
+    url = git@github.com:slaclab/rtems-net-legacy.git
     branch = slac-main
