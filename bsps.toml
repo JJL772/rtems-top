@@ -6,7 +6,7 @@
 # cfg = 'configs/rtems-config.mvme3100.ini' # Inferred
 
 [powerpc-mvme3100]
-networking = legacy
+networking = bsd
 net_services = true
 
 # NOTE: Includes support for mvme5500
