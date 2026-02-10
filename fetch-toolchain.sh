@@ -6,7 +6,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 
 mkdir -p host/linux-x86_64
 
-CURRENT_VER="2026.01.25"
+CURRENT_VER="2026.02.09"
 RTEMS_VER=7
 
 if [ -z "$1" ]; then
