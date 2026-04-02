@@ -14,9 +14,9 @@ net_services = true
 networking = bsd
 net_services = true
 
-[powerpc-psim]
-networking = none
-net_services = false
+#[powerpc-psim]
+#networking = none
+#net_services = false
 
 [i386-pc686]
 networking = bsd
@@ -29,4 +29,8 @@ net_services = true
 
 [m68k-uC5282]
 networking = legacy
+net_services = true
+
+[aarch64-zynqmp_apu]
+networking = bsd
 net_services = true
